@@ -6,3 +6,5 @@
         return suma
 
     }
+    
+console.log(suma)
