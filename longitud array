@@ -1,0 +1,8 @@
+    function longitudNombreCompleto (nombre, apellido) {
+        console.log("hola: ", nombre);
+        console.log("con apellido: ", apellido);
+    let suma = nombre  + " " +apellido
+        console.log("el total de letras es: "+ suma.length);
+        return suma
+
+    }
