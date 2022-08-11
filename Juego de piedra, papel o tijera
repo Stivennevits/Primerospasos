@@ -1,0 +1,48 @@
+alert("Bienvenidos al juego de piedra, papel o tijera")
+
+ function aleatorio (min, max){
+return Math.floor(Math.random() * (max - min + 1 ) + min)
+
+ }
+    let jugador = 0 
+    let pc = aleatorio (1,3)
+    jugador = prompt("Elige: 1 para piedra 🧱, 2 para papel 📜 , 3 para tijera ✂");
+
+    if (jugador == 1){
+        alert ("Elejiste Piedra 🧱");
+    }
+    else if (jugador == 2){
+        alert("Elejiste Papel 📜");
+    }
+    else if (jugador == 3){
+        alert("Elejiste Tijera ✂");
+    }
+    else {
+        alert("Debes Elegir 1 para piedra, 2 para papel, 3 para tijera")
+    
+    }
+
+    if (pc == 1){
+        alert ("PC Elije Piedra 🧱");
+    }
+    else if (pc == 2){
+        alert("PC Elije PApel 📜");
+    }
+    else {
+        alert("PC Elije Tijera ✂");
+    }
+
+    // COMBATE
+
+  
+    if (pc == jugador){
+        alert("Empate");
+    } else if (jugador == 2 && pc == 1){ 
+    alert("Ganaste");
+    } else if (jugador == 1 && pc == 3){
+        alert("Ganaste");
+    } else if (jugador == 3 && pc == 2){
+        alert("ganaste");
+    } else {
+        alert("Perdiste" )
+    }
