@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8" />
+       
+       <title>  MOKEPON! ☣☘💧🔥</title>
+
+       <section id="seleccionar-mascota"></section>
+            <h2> Elige a tu mascota  </h2>
+
+            <button> Seleccionar </button>
+
+       <section id="seleccionar-ataque">
+            <h2> Elige tu ataque </h2>
+
+         <p> Tu mascota tiene <span> 3 </span>  vidas</p>
+         <p> La mascota del enemigo tiene <span> 3 </span> vidas</p>
+         <p>
+           <button> FUEGO 🔥 </button>
+           <BUtton> AGUA 💧  </BUtton>
+           <BUTton> TIERRA 🌱</BUTton>
+         </p>
+
+      </section>
+
+      <section id="Mensajes">
+        <p> Tu mascota atacó con fuego, la mascota del enemigo atacó con tierra - GANASTE 🎉</p>
+      </section>
+     
+      <SEction id="Reiniciar"> </SEction>
+      <button> Reiniciar </button>
+    </head>
+
+
+</html>
