@@ -405,3 +405,625 @@ window.addEventListener("load", iniciarJuego)
 
 </html>
 
+// juego terminado con musica 
+
+let ataqueJugador 
+let ataqueEnemigo
+let vidasJugador = 3
+let vidasEnemigo = 3
+
+var temporizador = setInterval(function(){
+    setColor();
+}, 3000 );
+
+function setColor (){ 
+    let pagina = document.body;
+    pagina.style.background = pagina.style.background == "aqua" ? "gold" : "aqua";
+}
+
+
+function iniciarJuego(){
+    
+// configurar el primer boton 
+let botonMascota = document.getElementById("boton-mascota" )
+botonMascota.addEventListener("click", seleccionarMascotaJugador)
+
+// configurar botones de ataque 
+
+let botonFuego = document.getElementById("boton-Fuego")
+botonFuego.addEventListener("click", ataqueFuego)
+
+let botonAgua = document.getElementById("boton-Agua")
+botonAgua.addEventListener("click", ataqueAgua)
+
+let botonTierra = document.getElementById("boton-Tierra")
+botonTierra.addEventListener("click", ataqueTierra)
+
+let botonReiniciar = document.getElementById("boton-reiniciar")
+botonReiniciar.addEventListener("click", reiniciarJuego )
+
+}
+
+function seleccionarMascotaJugador(){
+
+    let inputAgumon = document.getElementById("Agumon")
+    let inputTierramon = document.getElementById("Tierramon")
+    let inputFuegomon = document.getElementById("Fuegomon")
+    let inputFireaguon = document.getElementById("Fireaguon")
+    let inputPantanosomon = document.getElementById("Pantanosomon")
+    let inputBosqueArdientemon = document.getElementById("BosqueArdientemon")
+    let spanMascotaJugador = document.getElementById("mascota-jugador")
+
+
+    if (inputAgumon.checked){
+        alert ("Seleccionaste a Agumon")
+        spanMascotaJugador.innerHTML = "Agumon"
+
+    } else if (inputTierramon.checked){
+        alert ("Seleccionaste a Tierramon")
+        spanMascotaJugador.innerHTML = "Tierramon"
+
+    } else if (inputFuegomon.checked){
+        alert ("seleccionaste a Fuegomon")
+        spanMascotaJugador.innerHTML = "Fuegomon"
+
+    } else if (inputFireaguon.checked){
+        alert ("Seleccionaste a Fireaguon")
+        spanMascotaJugador.innerHTML = "Fireaguon"   
+
+    } else if (inputPantanosomon.checked){
+        alert ("Seleccionaste a Pantanosomon")
+        spanMascotaJugador.innerHTML = "Pantanosomon"
+
+    } else if (inputBosqueArdientemon.checked ){
+        alert ("Seleccionaste a BosqueArdientemon")
+        spanMascotaJugador.innerHTML = "BosqueArdientemon"
+
+    } else {
+        alert ("Debes Seleccionar una mascota")
+    }
+    
+    seleccionarMascotaEnemigo()
+}
+
+function seleccionarMascotaEnemigo (){
+     let mascotaAleatorio = aleatorio2 (1,6)
+     let spanMAscotaEnemigo = document.getElementById("mascota-enemigo")
+
+     if (mascotaAleatorio == 1 ){
+        // agumon
+        alert ("El enemigo seleccionó a Agumon")
+        spanMAscotaEnemigo.innerHTML = "Agumon"
+
+     } else if (mascotaAleatorio == 2){
+        // tierramon
+        alert ("El enemigo seleccionó a Tierramon")
+        spanMAscotaEnemigo.innerHTML = "Tierramon"
+
+     } else if (mascotaAleatorio == 3){
+        // fuegomon
+        alert ("El enemigo seleccionó a Fuegomon")
+        spanMAscotaEnemigo.innerHTML = "Fuegomon"
+
+     } else if (mascotaAleatorio == 4 ){
+        // fireaguon
+        alert ("El enemigo seleccionó a Fireaguon")
+        spanMAscotaEnemigo.innerHTML = "Fireaguon"
+
+     } else if (mascotaAleatorio == 5 ){
+        // panatosomon
+        alert ("El enemigo seleccionó a Pantanosomon")
+        spanMAscotaEnemigo.innerHTML = "Pantanosomon"
+
+     } else {
+        // bosqueardientmon
+        alert ("El enemigo seleccionó a BosqueArdientemon")
+        spanMAscotaEnemigo.innerHTML = "BosqueArdientemon"
+     }
+}
+
+function ataqueFuego () {
+    ataqueJugador = "FUEGO"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+
+} 
+
+function ataqueAgua () {
+    ataqueJugador = "AGUA"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+} 
+
+function ataqueTierra () {
+    ataqueJugador = "TIERRA"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+} 
+
+function ataqueAleatorioEnemigo(){
+
+    let ataquealeatorio = aleatorio2 (1,3)
+
+    if (ataquealeatorio == 1){
+        ataqueEnemigo = "FUEGO"
+    } else if (ataquealeatorio == 2){
+        ataqueEnemigo = "AGUA"
+    } else {
+        ataqueEnemigo = "TIERRA"
+    }
+
+    combate()
+
+    alert ("El enemigo atacará con: " + " " + ataqueEnemigo)
+}
+
+function combate (){
+     
+    let spanVidasJugador = document.getElementById("vidas-jugador")
+    let spanVidasEnemigo = document.getElementById("vidas-enemigo")
+
+    if (ataqueJugador == ataqueEnemigo){
+        crearMensaje("Empate")
+    } else if ((ataqueJugador=="FUEGO" && ataqueEnemigo=="TIERRA") 
+    || 
+    (ataqueJugador=="AGUA" && ataqueEnemigo=="FUEGO") 
+    ||
+    (ataqueJugador=="TIERRA" && ataqueEnemigo=="AGUA")){
+        crearMensaje("Ganaste")
+        vidasEnemigo -- 
+        spanVidasEnemigo.innerHTML = vidasEnemigo
+    } else {
+        crearMensaje("Perdiste")
+        vidasJugador --
+        spanVidasJugador.innerHTML = vidasJugador
+    } 
+
+    revisarVidas()
+
+}
+
+function revisarVidas(){
+    if (vidasJugador == 0){
+    crearMensajeFinal("😭 LA SUERTE NO TE ACOMPAÑÓ, PERDISTE 😭")
+
+    }else if (vidasEnemigo == 0){
+    crearMensajeFinal("😱 FELICIDADES, GANASTE!!! 🎆🎈🎉")
+    }
+}
+
+function crearMensaje (resultado){
+
+    let sectionMensajes = document.getElementById("Mensajes")
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = "Tu mascota atacó con" + " " + ataqueJugador + " " + ", la mascota del enemigo atacó con " + " " + ataqueEnemigo + " - " + resultado 
+
+    sectionMensajes.appendChild(parrafo)
+}
+
+function crearMensajeFinal (resultadoFinal){
+
+    let sectionMensajes = document.getElementById("Mensajes")
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = resultadoFinal
+
+    sectionMensajes.appendChild(parrafo)
+
+    let botonFuego = document.getElementById("boton-Fuego")
+    botonFuego.disabled = true
+
+    let botonAgua = document.getElementById("boton-Agua")
+    botonAgua.disabled = true
+
+    let botonTierra = document.getElementById("boton-Tierra")
+    botonTierra.disabled = true
+}
+
+function reiniciarJuego(){
+    location.reload()
+}
+
+function aleatorio2 (min, max){
+    return Math.floor(Math.random() * (max - min + 1 ) + min)
+ }
+
+window.addEventListener("load", iniciarJuego)
+
+// html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        
+       <meta charset="utf-8" />
+     
+
+       <title>  MOKEPON! ☣☘💧🔥</title>
+
+       
+       <script src="boton.js"></script>
+       
+    </head>
+    <body>
+        <audio controls="false" autoplay="" loop="true" >
+            <source src="cancion pag.mp3" type="audio/mp3">
+           </audio>
+        <style>
+            body{
+                background-color: aqua;
+            }
+        </style>
+
+    <h1> ☣☘💧🔥 MOKEPON! ☣☘💧🔥 </h1>
+       <section id="seleccionar-mascota"></section>
+            <h2> Elige a tu mascota  </h2>
+             
+            <label for="Agumon"> Agumon</label>
+            <input type="radio" name="mascota" id="Agumon"/>
+
+            <label for="Tierramon"> Tierramon</label>
+            <input type="radio" name="mascota" id="Tierramon"/>
+
+            <label for="Fuegomon"> Fuegomon</label>
+            <input type="radio" name="mascota" id="Fuegomon"/>
+
+            <label for="Fireaguon"> Fireaguon</label>
+            <input type="radio" name="mascota" id="Fireaguon"/>
+
+            <label for="Pantanosomon"> Pantanosomon</label>
+            <input type="radio" name="mascota" id="Pantanosomon"/>
+
+            <label for="BosqueArdientemon"> BosqueArdientemon</label>
+            <input type="radio" name="mascota" id="BosqueArdientemon"/>
+
+            
+
+            <button id="boton-mascota"> Seleccionar </button>
+
+       <section id="seleccionar-ataque">
+            <h2> Elige tu ataque </h2>
+
+         <p> Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador"> 3 </span>  vidas</p>
+         <p> La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo"> 3 </span> vidas</p>
+         <p>
+             <button id="boton-Fuego"> FUEGO 🔥 </button>
+             <BUtton id="boton-Agua"> AGUA 💧  </BUtton>
+             <BUTton id="boton-Tierra"> TIERRA 🌱</BUTton>
+         </p>
+        
+         
+      </section>
+
+      <section id="Mensajes">
+        <p> </p>
+      </section>
+     
+      <SEction id="Reiniciar"> </SEction>
+      <button id="boton-reiniciar"> Reiniciar </button>
+
+      
+    </body>
+
+</html>
+
+// juego terminado 
+
+let ataqueJugador 
+let ataqueEnemigo
+let vidasJugador = 3
+let vidasEnemigo = 3
+
+var temporizador = setInterval(function(){
+    setColor();
+}, 5000 );
+
+function setColor (){ 
+    let pagina = document.body;
+    pagina.style.background = pagina.style.background == "aqua" ? "gold" : "aqua";
+}
+
+
+function iniciarJuego(){
+
+let setcionReiniciar = document.getElementById("Reiniciar")
+setcionReiniciar.style.display = "none"    
+    
+let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque")
+sectionSeleccionarAtaque.style.display = "none"
+    
+// configurar el primer boton 
+let botonMascota = document.getElementById("boton-mascota" )
+botonMascota.addEventListener("click", seleccionarMascotaJugador)
+
+// configurar botones de ataque 
+
+let botonFuego = document.getElementById("boton-Fuego")
+botonFuego.addEventListener("click", ataqueFuego)
+
+let botonAgua = document.getElementById("boton-Agua")
+botonAgua.addEventListener("click", ataqueAgua)
+
+let botonTierra = document.getElementById("boton-Tierra")
+botonTierra.addEventListener("click", ataqueTierra)
+
+let botonReiniciar = document.getElementById("boton-reiniciar")
+botonReiniciar.addEventListener("click", reiniciarJuego )
+
+}
+
+function seleccionarMascotaJugador(){
+    let sectionSeleccionarMascota = document.getElementById("seleccionar-mascota")
+    sectionSeleccionarMascota.style.display = "none"
+    let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque")
+    sectionSeleccionarAtaque.style.display = "block"
+
+    let inputAgumon = document.getElementById("Agumon")
+    let inputTierramon = document.getElementById("Tierramon")
+    let inputFuegomon = document.getElementById("Fuegomon")
+    let inputFireaguon = document.getElementById("Fireaguon")
+    let inputPantanosomon = document.getElementById("Pantanosomon")
+    let inputBosqueArdientemon = document.getElementById("BosqueArdientemon")
+    let spanMascotaJugador = document.getElementById("mascota-jugador")
+
+
+    if (inputAgumon.checked){
+        alert ("Seleccionaste a Agumon")
+        spanMascotaJugador.innerHTML = "Agumon"
+
+    } else if (inputTierramon.checked){
+        alert ("Seleccionaste a Tierramon")
+        spanMascotaJugador.innerHTML = "Tierramon"
+
+    } else if (inputFuegomon.checked){
+        alert ("seleccionaste a Fuegomon")
+        spanMascotaJugador.innerHTML = "Fuegomon"
+
+    } else if (inputFireaguon.checked){
+        alert ("Seleccionaste a Fireaguon")
+        spanMascotaJugador.innerHTML = "Fireaguon"   
+
+    } else if (inputPantanosomon.checked){
+        alert ("Seleccionaste a Pantanosomon")
+        spanMascotaJugador.innerHTML = "Pantanosomon"
+
+    } else if (inputBosqueArdientemon.checked ){
+        alert ("Seleccionaste a BosqueArdientemon")
+        spanMascotaJugador.innerHTML = "BosqueArdientemon"
+
+    } else {
+        alert ("Debes Seleccionar una mascota")
+    }
+    
+    seleccionarMascotaEnemigo()
+}
+
+function seleccionarMascotaEnemigo (){
+     let mascotaAleatorio = aleatorio2 (1,6)
+     let spanMAscotaEnemigo = document.getElementById("mascota-enemigo")
+
+     if (mascotaAleatorio == 1 ){
+        // agumon
+        alert ("El enemigo seleccionó a Agumon")
+        spanMAscotaEnemigo.innerHTML = "Agumon"
+
+     } else if (mascotaAleatorio == 2){
+        // tierramon
+        alert ("El enemigo seleccionó a Tierramon")
+        spanMAscotaEnemigo.innerHTML = "Tierramon"
+
+     } else if (mascotaAleatorio == 3){
+        // fuegomon
+        alert ("El enemigo seleccionó a Fuegomon")
+        spanMAscotaEnemigo.innerHTML = "Fuegomon"
+
+     } else if (mascotaAleatorio == 4 ){
+        // fireaguon
+        alert ("El enemigo seleccionó a Fireaguon")
+        spanMAscotaEnemigo.innerHTML = "Fireaguon"
+
+     } else if (mascotaAleatorio == 5 ){
+        // panatosomon
+        alert ("El enemigo seleccionó a Pantanosomon")
+        spanMAscotaEnemigo.innerHTML = "Pantanosomon"
+
+     } else {
+        // bosqueardientmon
+        alert ("El enemigo seleccionó a BosqueArdientemon")
+        spanMAscotaEnemigo.innerHTML = "BosqueArdientemon"
+     }
+}
+
+function ataqueFuego () {
+    ataqueJugador = "FUEGO"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+
+} 
+
+function ataqueAgua () {
+    ataqueJugador = "AGUA"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+} 
+
+function ataqueTierra () {
+    ataqueJugador = "TIERRA"
+    ataqueAleatorioEnemigo()
+    alert ("Atacarás con: " + " " + ataqueJugador)
+} 
+
+function ataqueAleatorioEnemigo(){
+
+    let ataquealeatorio = aleatorio2 (1,3)
+
+    if (ataquealeatorio == 1){
+        ataqueEnemigo = "FUEGO"
+    } else if (ataquealeatorio == 2){
+        ataqueEnemigo = "AGUA"
+    } else {
+        ataqueEnemigo = "TIERRA"
+    }
+
+    combate()
+
+    alert ("El enemigo atacará con: " + " " + ataqueEnemigo)
+}
+
+function combate (){
+    
+     
+    let spanVidasJugador = document.getElementById("vidas-jugador")
+    let spanVidasEnemigo = document.getElementById("vidas-enemigo")
+
+    if (ataqueJugador == ataqueEnemigo){
+        crearMensaje("Empate")
+    } else if ((ataqueJugador=="FUEGO" && ataqueEnemigo=="TIERRA") 
+    || 
+    (ataqueJugador=="AGUA" && ataqueEnemigo=="FUEGO") 
+    ||
+    (ataqueJugador=="TIERRA" && ataqueEnemigo=="AGUA")){
+        crearMensaje("Ganaste")
+        vidasEnemigo -- 
+        spanVidasEnemigo.innerHTML = vidasEnemigo
+    } else {
+        crearMensaje("Perdiste")
+        vidasJugador --
+        spanVidasJugador.innerHTML = vidasJugador
+    } 
+
+    revisarVidas()
+
+}
+
+function revisarVidas(){
+    let setcionReiniciar = document.getElementById("Reiniciar")
+setcionReiniciar.style.display = "block" 
+
+    if (vidasJugador == 0){
+    crearMensajeFinal("😭 LA SUERTE NO TE ACOMPAÑÓ, PERDISTE 😭")
+
+    }else if (vidasEnemigo == 0){
+    crearMensajeFinal("😱 FELICIDADES, GANASTE!!! 🎆🎈🎉")
+    }
+}
+
+function crearMensaje (resultado){
+
+    let sectionMensajes = document.getElementById("Mensajes")
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = "Tu mascota atacó con" + " " + ataqueJugador + " " + ", la mascota del enemigo atacó con " + " " + ataqueEnemigo + " - " + resultado 
+
+    sectionMensajes.appendChild(parrafo)
+}
+
+function crearMensajeFinal (resultadoFinal){
+
+    
+
+    let sectionMensajes = document.getElementById("Mensajes")
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = resultadoFinal
+
+    sectionMensajes.appendChild(parrafo)
+
+    let botonFuego = document.getElementById("boton-Fuego")
+    botonFuego.disabled = true
+
+    let botonAgua = document.getElementById("boton-Agua")
+    botonAgua.disabled = true
+
+    let botonTierra = document.getElementById("boton-Tierra")
+    botonTierra.disabled = true
+}
+
+function reiniciarJuego(){
+    location.reload()
+}
+
+function aleatorio2 (min, max){
+    return Math.floor(Math.random() * (max - min + 1 ) + min)
+ }
+
+window.addEventListener("load", iniciarJuego)
+
+
+// html 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        
+       <meta charset="utf-8" />
+     
+
+       <title>  MOKEPON! ☣☘💧🔥</title>
+
+       
+       <script src="boton.js"></script>
+       
+    </head>
+    <body>
+        <audio controls="false" autoplay="" loop="true" >
+            <source src="cancion pag.mp3" type="audio/mp3">
+           </audio>
+        <style>
+            body{
+                background-color: aqua;
+            }
+        </style>
+
+    <h1> ☣☘💧🔥 MOKEPON! ☣☘💧🔥 </h1>
+    
+       <section id="seleccionar-mascota">
+            <h2> Elige a tu mascota  </h2>
+             
+            <label for="Agumon"> Agumon</label>
+            <input type="radio" name="mascota" id="Agumon"/>
+
+            <label for="Tierramon"> Tierramon</label>
+            <input type="radio" name="mascota" id="Tierramon"/>
+
+            <label for="Fuegomon"> Fuegomon</label>
+            <input type="radio" name="mascota" id="Fuegomon"/>
+
+            <label for="Fireaguon"> Fireaguon</label>
+            <input type="radio" name="mascota" id="Fireaguon"/>
+
+            <label for="Pantanosomon"> Pantanosomon</label>
+            <input type="radio" name="mascota" id="Pantanosomon"/>
+
+            <label for="BosqueArdientemon"> BosqueArdientemon</label>
+            <input type="radio" name="mascota" id="BosqueArdientemon"/>
+        
+            
+
+            <button id="boton-mascota"> Seleccionar </button>
+        </section>
+
+       <section id="seleccionar-ataque">
+            <h2> Elige tu ataque </h2>
+
+         <p> Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador"> 3 </span>  vidas</p>
+         <p> La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo"> 3 </span> vidas</p>
+         <p>
+             <button id="boton-Fuego"> FUEGO 🔥 </button>
+             <BUtton id="boton-Agua"> AGUA 💧  </BUtton>
+             <BUTton id="boton-Tierra"> TIERRA 🌱</BUTton>
+         </p>
+        
+
+         
+      </section>
+
+      <section id="Mensajes">
+        <p> </p>
+      </section>
+     
+      <SEction id="Reiniciar"> 
+      <button id="boton-reiniciar"> Reiniciar </button>
+      </SEction>
+
+      
+    </body>
+
+</html>
